@@ -25,8 +25,8 @@ FROM nginx:alpine
 # Copy built Storybook files
 COPY --from=builder /app/Frontend/storybook-static /usr/share/nginx/html
 
-# Copy nginx configuration (if exists, otherwise use default)
-COPY nginx.conf /etc/nginx/conf.d/default.conf 2>/dev/null || true
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
