@@ -45,13 +45,13 @@ const CodeExample: React.FC<{ code: string; title?: string }> = ({ code, title }
   );
 };
 
-const meta: Meta = {
+const meta = {
   title: 'Backend Components/Logging/Logger',
   parameters: {
     layout: 'padded',
   },
   tags: ['autodocs'],
-};
+} as Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
