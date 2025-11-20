@@ -127,3 +127,44 @@ export interface ServiceConfig {
     cors: boolean;
   };
 }
+
+export interface OAuth2ProviderConfig {
+  clientId: string;
+  clientSecret: string;
+  authorizationURL: string;
+  tokenURL: string;
+  userInfoURL?: string;
+  redirectURI: string;
+  scope?: string[];
+  state?: string;
+  pkce?: boolean;
+}
+
+export interface OAuth2TokenResponse {
+  access_token: string;
+  token_type: string;
+  expires_in?: number;
+  refresh_token?: string;
+  scope?: string;
+  id_token?: string;
+}
+
+export interface OAuth2UserInfo {
+  id: string;
+  email: string;
+  name?: string;
+  picture?: string;
+  [key: string]: any;
+}
+
+export interface RBACRole {
+  name: string;
+  permissions: string[];
+  parent?: string; // Parent role for inheritance
+}
+
+export interface RBACConfig {
+  roles: RBACRole[];
+  defaultRole?: string;
+  enableInheritance?: boolean;
+}

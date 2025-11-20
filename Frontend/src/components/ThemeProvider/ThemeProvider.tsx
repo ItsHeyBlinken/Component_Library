@@ -15,6 +15,7 @@
  */
 
 import React, { createContext, useContext, ReactNode } from 'react';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { Theme } from '../../types';
 
 export const defaultTheme: Theme = {
@@ -224,7 +225,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 
   return (
     <ThemeContext.Provider value={mergedTheme}>
-      {children}
+      <StyledThemeProvider theme={mergedTheme}>
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };

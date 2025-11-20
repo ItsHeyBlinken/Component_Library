@@ -55,7 +55,7 @@ const StyledStack = styled.div<StackProps>`
   justify-content: ${({ justify }) => justify || 'start'};
   
   /* Wrapping */
-  flex-wrap: ${({ wrap }) => wrap ? 'wrap' : 'nowrap'};
+  flex-wrap: ${({ wrap }) => (wrap === true || wrap === 'true') ? 'wrap' : 'nowrap'};
   
   /* Spacing between children */
   > * + * {

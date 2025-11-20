@@ -3,6 +3,8 @@
 // Security Components
 export { AuthMiddleware } from './components/Security/AuthMiddleware';
 export { SecurityMiddleware } from './components/Security/SecurityMiddleware';
+export { OAuth2Middleware } from './components/Security/OAuth2Middleware';
+export { RBACMiddleware } from './components/Security/RBACMiddleware';
 
 // Validation Components
 export { RequestValidator } from './components/Validation/RequestValidator';

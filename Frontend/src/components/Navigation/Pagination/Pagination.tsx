@@ -63,7 +63,7 @@ const PaginationContainer = styled.div<{
       default: return theme.spacing.sm;
     }
   }};
-  background: ${({ theme, $customColors }) => $customColors?.backgroundColor || theme.colors.background};
+  background: ${({ theme, $customColors }) => $customColors?.backgroundColor || theme.colors.background.paper};
   border: ${({ $bordered, theme, $customColors }) => 
     $bordered ? `1px solid ${$customColors?.borderColor || theme.colors.border}` : 'none'};
   border-radius: ${({ $rounded, theme }) => $rounded ? theme.borderRadius.md : '0'};
@@ -214,7 +214,7 @@ const PageSizeSelector = styled.select<{ $size: ComponentSize }>`
   }};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.background.paper};
   color: ${({ theme }) => theme.colors.text.primary};
   font-size: ${({ theme, $size }) => {
     switch ($size) {
@@ -251,7 +251,7 @@ const QuickJumper = styled.div<{ $size: ComponentSize }>`
     }};
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-radius: ${({ theme }) => theme.borderRadius.sm};
-    background: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.background.paper};
     color: ${({ theme }) => theme.colors.text.primary};
     font-size: ${({ theme, $size }) => {
       switch ($size) {

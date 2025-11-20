@@ -68,7 +68,7 @@ const TabsContainer = styled.div<{
   display: flex;
   flex-direction: ${({ $orientation }) => $orientation === 'vertical' ? 'row' : 'column'};
   width: ${({ $fullWidth }) => $fullWidth ? '100%' : 'auto'};
-  background: ${({ theme, $customColors }) => $customColors?.backgroundColor || theme.colors.background.primary};
+  background: ${({ theme, $customColors }) => $customColors?.backgroundColor || (theme?.colors?.background?.primary || '#ffffff')};
   border: ${({ $bordered, theme, $customColors }) => 
     $bordered ? `1px solid ${$customColors?.borderColor || theme.colors.border}` : 'none'};
   border-radius: ${({ $rounded, theme }) => $rounded ? theme.borderRadius.md : '0'};
@@ -113,7 +113,7 @@ const TabBar = styled.div<{
   gap: ${({ $tabBarGutter }) => $tabBarGutter}px;
   background: ${({ theme, $type, $customColors }) => {
     if ($type === 'text') return 'transparent';
-    return $customColors?.backgroundColor || theme.colors.background;
+    return $customColors?.backgroundColor || theme.colors.background.paper;
   }};
   
   ${({ $type, theme, $customColors }) => {
@@ -180,7 +180,7 @@ const TabItem = styled.div<{
           border: 1px solid ${$customColors?.borderColor || theme.colors.border};
           border-bottom: ${$active ? 'none' : `1px solid ${$customColors?.borderColor || theme.colors.border}`};
           margin-bottom: -1px;
-          background: ${$active ? theme.colors.background : 'transparent'};
+          background: ${$active ? theme.colors.background.paper : 'transparent'};
         `;
       case 'line':
         return css`
