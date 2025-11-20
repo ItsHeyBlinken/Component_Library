@@ -124,11 +124,17 @@ npm test
 
 The component library can be deployed as a static site to Coolify. See the deployment guide for detailed instructions.
 
-**Quick Setup:**
+**Quick Setup (Option 1 - Static Site):**
 1. Create Static Site resource in Coolify
 2. Set build command: `cd Frontend && npm install && npm run build-storybook`
 3. Set output directory: `Frontend/storybook-static`
 4. Deploy!
+
+**Alternative (Option 2 - Dockerfile):**
+If the build command doesn't run, use the included Dockerfile:
+1. Create Docker Compose/Dockerfile resource in Coolify
+2. Dockerfile will be auto-detected from repository root
+3. Deploy!
 
 For detailed instructions, see:
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Complete deployment guide

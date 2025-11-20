@@ -4,25 +4,43 @@ Quick copy-paste values for configuring the Component Library in Coolify UI.
 
 ## Resource Type
 
-**Static Site** (recommended)
+**Option 1: Static Site** (recommended - simpler)
+**Option 2: Dockerfile** (if Option 1 doesn't work - more reliable)
+
+If the build command doesn't run with Option 1, use Option 2 with the included Dockerfile.
 
 ## Build Configuration
 
-### Build Command
+### Option 1: Static Site
+
+**Build Command:**
 ```bash
 cd Frontend && npm install && npm run build-storybook
 ```
 
-### Output Directory
+**Output Directory:**
 ```
 Frontend/storybook-static
 ```
 
-### Port
+**Port:**
 ```
 80
 ```
 (Default for static sites)
+
+### Option 2: Dockerfile
+
+**Resource Type:** Docker Compose or Dockerfile
+
+**Dockerfile Location:** `./Dockerfile` (auto-detected)
+
+**Port:**
+```
+80
+```
+
+No build command needed - Dockerfile handles everything.
 
 ## Deployment Settings
 
@@ -41,10 +59,21 @@ Frontend/storybook-static
 
 ## Quick Setup Checklist
 
+### Option 1: Static Site
 - [ ] Create new Static Site resource in Coolify
 - [ ] Connect Git repository
 - [ ] Set build command: `cd Frontend && npm install && npm run build-storybook`
 - [ ] Set output directory: `Frontend/storybook-static`
+- [ ] Set port: `80`
+- [ ] Enable automated deployments
+- [ ] Configure domain (optional but recommended)
+- [ ] Enable SSL/HTTPS
+- [ ] Deploy
+
+### Option 2: Dockerfile (if Option 1 doesn't work)
+- [ ] Create new Docker Compose or Dockerfile resource in Coolify
+- [ ] Connect Git repository
+- [ ] Verify Dockerfile is in repository root
 - [ ] Set port: `80`
 - [ ] Enable automated deployments
 - [ ] Configure domain (optional but recommended)
@@ -69,14 +98,17 @@ After deployment, you should see:
 
 ## Troubleshooting Quick Fixes
 
-**Build fails:**
+**Build fails or doesn't run:**
 - Check Node.js version (needs 18+)
 - Verify build command path
 - Check build logs in Coolify
+- **If build doesn't run:** Switch to Option 2 (Dockerfile)
 
-**404 errors:**
-- Verify output directory: `Frontend/storybook-static`
+**404 errors or blank page:**
+- Verify output directory: `Frontend/storybook-static` (Option 1)
 - Check that build completed successfully
+- Check Docker build logs (Option 2)
+- Verify Dockerfile is in repository root (Option 2)
 
 **SSL issues:**
 - Verify DNS is pointing to VPS

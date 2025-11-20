@@ -23,20 +23,26 @@ This creates a `storybook-static` directory in the `Frontend` folder containing 
 
 ## Coolify Configuration
 
-### Step 1: Create New Resource
+You have two options for deployment:
+
+### Option 1: Static Site with Build Command (Recommended)
+
+Coolify will run the build command and serve the output.
+
+#### Step 1: Create New Resource
 
 1. Log into your Coolify dashboard
 2. Navigate to your project/server
 3. Click **"New Resource"** or **"Add Resource"**
 4. Select **"Static Site"** as the resource type
 
-### Step 2: Connect Git Repository
+#### Step 2: Connect Git Repository
 
 1. In the resource configuration, connect your Git repository
 2. Select the branch you want to deploy (typically `main` or `master`)
 3. Enable **"Automated Deployments"** if you want automatic updates on push
 
-### Step 3: Configure Build Settings
+#### Step 3: Configure Build Settings
 
 In the build configuration section, enter the following:
 
@@ -56,7 +62,37 @@ Frontend/storybook-static
 ```
 (Leave as default for static sites)
 
+### Option 2: Custom Dockerfile (Alternative)
+
+If the build command approach doesn't work, use the included Dockerfile.
+
+#### Step 1: Create New Resource
+
+1. Log into your Coolify dashboard
+2. Navigate to your project/server
+3. Click **"New Resource"** or **"Add Resource"**
+4. Select **"Docker Compose"** or **"Dockerfile"** as the resource type
+
+#### Step 2: Connect Git Repository
+
+1. In the resource configuration, connect your Git repository
+2. Select the branch you want to deploy (typically `main` or `master`)
+3. Enable **"Automated Deployments"** if you want automatic updates on push
+
+#### Step 3: Configure Docker Settings
+
+- **Dockerfile Location:** `./Dockerfile` (root of repository)
+- **Port:** `80`
+- Coolify will automatically detect and use the Dockerfile
+
+The included Dockerfile will:
+- Build Storybook in a Node.js container
+- Copy the built files to an nginx container
+- Serve the static site with optimized nginx configuration
+
 ### Step 4: Configure Domain (Optional)
+
+(For both options above)
 
 1. In the domain configuration section:
    - Enter your domain or subdomain (e.g., `components.yourdomain.com`)
@@ -68,10 +104,12 @@ Frontend/storybook-static
 1. Click **"Deploy"** or **"Save and Deploy"**
 2. Coolify will:
    - Clone your repository
-   - Install dependencies
-   - Run the build command
+   - **Option 1:** Run the build command and serve the output
+   - **Option 2:** Build the Docker image using the Dockerfile
    - Serve the static files
    - Set up SSL (if domain configured)
+
+**Note:** If you see the deployment succeed but the site shows a blank page or 404, the build step may not have run. In this case, use Option 2 (Dockerfile) which ensures the build always runs.
 
 ## Quick Reference
 
@@ -108,23 +146,36 @@ No environment variables are required for basic Storybook deployment. The build 
 
 ## Troubleshooting
 
-### Build Fails
+### Build Fails or Doesn't Run
 
-**Issue:** Build command fails with npm errors
-
-**Solution:**
-- Ensure Node.js 18+ is available in Coolify's build environment
-- Check that all dependencies are listed in `package.json`
-- Verify the build command path is correct: `cd Frontend && npm install && npm run build-storybook`
-
-### Output Directory Not Found
-
-**Issue:** Coolify can't find the output directory
+**Issue:** Build command fails with npm errors, or build doesn't run at all
 
 **Solution:**
-- Verify the output directory path: `Frontend/storybook-static`
-- Ensure the build completes successfully (check build logs)
-- The directory is created during the build process
+- **If using Option 1 (Static Site):** 
+  - Ensure Node.js 18+ is available in Coolify's build environment
+  - Check that all dependencies are listed in `package.json`
+  - Verify the build command path is correct: `cd Frontend && npm install && npm run build-storybook`
+  - Check build logs in Coolify to see if the command executed
+- **If build doesn't run:** Switch to Option 2 (Dockerfile) which guarantees the build runs
+- **If using Option 2 (Dockerfile):**
+  - Ensure Docker has enough resources (memory/CPU)
+  - Check Docker build logs in Coolify
+  - Verify the Dockerfile is in the repository root
+
+### Output Directory Not Found or Blank Page
+
+**Issue:** Coolify can't find the output directory, or site shows blank page/404
+
+**Solution:**
+- **If using Option 1 (Static Site):**
+  - Verify the output directory path: `Frontend/storybook-static`
+  - Ensure the build completes successfully (check build logs)
+  - The directory is created during the build process
+  - If build didn't run, the directory won't exist - switch to Option 2
+- **If using Option 2 (Dockerfile):**
+  - Check Docker build logs to ensure build stage completed
+  - Verify nginx is serving from `/usr/share/nginx/html`
+  - Check container logs in Coolify
 
 ### Components Not Loading
 
